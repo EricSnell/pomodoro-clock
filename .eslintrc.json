@@ -1,3 +1,24 @@
 {
-    "extends": "airbnb-base"
+    "extends": [
+        "airbnb-base",
+        "prettier"
+    ],
+    "env": {
+        "browser": true,
+        "jquery": true
+    },
+    "rules": {
+        "no-use-before-define": [
+            "error",
+            {
+                "functions": false
+            }
+        ],
+        "no-param-reassign": [
+            "error",
+            {
+                "props": false
+            }
+        ]
+    }
 }
