@@ -23,8 +23,8 @@ button {
 .container {
   display: flex;
   flex-direction: column;
-  width: 20rem;
-  height: 25rem;
+  width: 26rem;
+  height: 34rem;
   background: #333;
   color: #fff; }
 
@@ -45,14 +45,22 @@ button {
   align-self: stretch;
   display: flex;
   flex-direction: column;
-  justify-content: center; }
+  justify-content: center;
+  align-items: center; }
+  .controls__header {
+    text-align: center;
+    font-size: 1rem; }
   .controls__btn {
-    flex: 1;
+    flex: 0 30%;
+    width: 3rem;
     background: #333;
     font-size: 2rem;
-    color: #fff; }
+    color: #fff;
+    transition: all .4s; }
+    .controls__btn:hover {
+      color: aqua; }
   .controls__display {
-    flex: 1;
+    flex: 0 10%;
     color: white;
     display: flex;
     justify-content: center;
@@ -63,7 +71,7 @@ button {
   border-radius: 20rem;
   width: 6rem;
   height: 6rem;
-  background: greenyellow;
-  transition: background .4s; }
+  background: #fff;
+  transition: all .4s; }
   .timer-btn:hover {
-    background: green; }
+    background: aqua; }
