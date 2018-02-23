@@ -60,7 +60,7 @@ button {
     .controls__btn:hover {
       color: aqua; }
   .controls__display {
-    flex: 0 10%;
+    flex: 0 15%;
     color: white;
     display: flex;
     justify-content: center;
