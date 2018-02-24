@@ -2,6 +2,7 @@
   'use strict'
 
   const [settings] = Array.from(document.getElementsByClassName('settings'));
+  const [timer] = Array.from(document.getElementsByClassName('timer'));
   const breakDisplay = document.getElementById('break-display');
   const sessionDisplay = document.getElementById('session-display');
 
@@ -9,6 +10,8 @@
     breakLength: 5,
     sessionLength: 25
   }
+
+  updateDisplay();
 
   settings.addEventListener('click', (e) => {
     const target = e.target.id;
@@ -33,6 +36,8 @@
       default:
         break;
     }
+
+    updateDisplay();
   })
 
 
@@ -42,6 +47,12 @@
   function updateState(newState = {}) {
     state = Object.assign({}, state, newState);
     console.log(state);
+  }
+
+  function updateDisplay() {
+    breakDisplay.textContent = state.breakLength;
+    sessionDisplay.textContent = state.sessionLength;
+    timer.textContent = state.sessionLength;
   }
 
 })()
