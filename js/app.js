@@ -8,9 +8,9 @@
   const [timerBtn] = Array.from(document.getElementsByClassName('timer-btn'));
 
   let state = {
-    breakLength: 5,
-    sessionLength: 25,
-    currentCount: null,
+    breakLength: 1,
+    sessionLength: 3,
+    currentCount: null, // use seconds -- sessionlength * 60
     paused: true
   }
 
@@ -48,14 +48,33 @@
 
 
   timerBtn.addEventListener('click', (e) => {
-    const newState = !state.paused;
-    updateState({ paused: newState });
+    togglePaused();
+    updateState({ currentCount: state.sessionLength * 60 });
+
+    setInterval(() => {
+      const date = new Date(null);
+      const newState = state.currentCount - 1;
+      updateState({ currentCount: newState });
+      date.setSeconds(state.currentCount);
+      // date.setSeconds(state.currentCount);
+      // const countdown = date.toISOString().substr(11, 8);
+      // updateCounterDisplay(countdown);
+    }, 1000);
   });
 
+  function togglePaused() {
+    const toggle = !state.paused;
+    updateState({ paused: toggle });
+  }
 
-  function countdown() {
-    let start = this.sessionLength;
-    console.log(start);
+
+  function runSession() {
+    // 
+
+  }
+
+  function runBreak() {
+
   }
 
   function updateState(newState = {}) {
@@ -67,6 +86,10 @@
     breakDisplay.textContent = state.breakLength;
     sessionDisplay.textContent = state.sessionLength;
     timer.textContent = state.sessionLength;
+  }
+
+  function updateCounterDisplay(time) {
+    timer.textContent = time;
   }
 
 })()
