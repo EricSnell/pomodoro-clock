@@ -32,11 +32,11 @@
           break;
         case 'session-increase':
           newState = state.sessionLength + 1;
-          updateState({ sessionLength: newState });
+          updateState({ sessionLength: newState, currentCount: null });
           break;
         case 'session-decrease':
           newState = state.sessionLength > 0 ? state.sessionLength - 1 : 0;
-          updateState({ sessionLength: newState })
+          updateState({ sessionLength: newState, currentCount: null })
           break;
         default:
           break;
@@ -68,7 +68,11 @@
 
   function runTimer() {
     timer = setInterval(() => {
-      countdown();
+      if (state.currentCount > 0) {
+        countdown();
+      } else {
+        // toggle timer (session or break)
+      }
     }, 1000);
   }
 
