@@ -12,7 +12,8 @@
     breakLength: 1,
     sessionLength: 3,
     currentCount: null, // use seconds -- sessionlength * 60
-    paused: true
+    paused: true,
+    break: false
   }
 
   updateDisplay();
@@ -71,10 +72,17 @@
       if (state.currentCount > 0) {
         countdown();
       } else {
-        // toggle timer (session or break)
+        toggleTimer();
       }
     }, 1000);
   }
+
+  function toggleTimer() {
+    updateState({ break: !state.break })
+    const time = state.break ? state.breakLength * 60 : state.sessionLength * 60;
+    updateState({ currentCount: time });
+  }
+
 
   function stopTimer() {
     clearInterval(timer);
