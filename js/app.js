@@ -2,10 +2,11 @@
   'use strict'
 
   const [settings] = Array.from(document.getElementsByClassName('settings'));
-  const [timer] = Array.from(document.getElementsByClassName('timer'));
+  const [timerDisplay] = Array.from(document.getElementsByClassName('timer'));
   const breakDisplay = document.getElementById('break-display');
   const sessionDisplay = document.getElementById('session-display');
   const [timerBtn] = Array.from(document.getElementsByClassName('timer-btn'));
+  let timer;
 
   let state = {
     breakLength: 1,
@@ -48,12 +49,16 @@
 
 
   timerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     togglePaused();
-    updateState({ currentCount: state.sessionLength * 60 });
-
-    setInterval(() => {
+    if (state.paused) {
+      stopTimer();
+    } else {
+      if (!state.currentCount) {
+        updateState({ currentCount: state.sessionLength * 60 });
+      }
       runTimer();
-    }, 1000);
+    }
   });
 
   function togglePaused() {
@@ -62,22 +67,22 @@
   }
 
   function runTimer() {
+    timer = setInterval(() => {
+      countdown();
+    }, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(timer);
+  }
+
+  function countdown() {
     const date = new Date(null);
-    const newState = state.currentCount - 1;
-    updateState({ currentCount: newState });
+    const decreaseCount = state.currentCount - 1;
+    updateState({ currentCount: decreaseCount });
     date.setSeconds(state.currentCount);
     const hhmmss = date.toISOString().substr(11, 8);
     updateCounterDisplay(hhmmss);
-  }
-
-
-  function runSession() {
-    // 
-
-  }
-
-  function runBreak() {
-
   }
 
   function updateState(newState = {}) {
@@ -88,11 +93,11 @@
   function updateDisplay() {
     breakDisplay.textContent = state.breakLength;
     sessionDisplay.textContent = state.sessionLength;
-    timer.textContent = state.sessionLength;
+    timerDisplay.textContent = state.sessionLength;
   }
 
   function updateCounterDisplay(time) {
-    timer.textContent = time;
+    timerDisplay.textContent = time;
   }
 
 })()
