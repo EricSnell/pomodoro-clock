@@ -52,19 +52,22 @@
     updateState({ currentCount: state.sessionLength * 60 });
 
     setInterval(() => {
-      const date = new Date(null);
-      const newState = state.currentCount - 1;
-      updateState({ currentCount: newState });
-      date.setSeconds(state.currentCount);
-      // date.setSeconds(state.currentCount);
-      // const countdown = date.toISOString().substr(11, 8);
-      // updateCounterDisplay(countdown);
+      runTimer();
     }, 1000);
   });
 
   function togglePaused() {
     const toggle = !state.paused;
     updateState({ paused: toggle });
+  }
+
+  function runTimer() {
+    const date = new Date(null);
+    const newState = state.currentCount - 1;
+    updateState({ currentCount: newState });
+    date.setSeconds(state.currentCount);
+    const hhmmss = date.toISOString().substr(11, 8);
+    updateCounterDisplay(hhmmss);
   }
 
 
