@@ -11,7 +11,7 @@
   let state = {
     breakLength: 1,
     sessionLength: 3,
-    currentCount: null, // use seconds -- sessionlength * 60
+    currentCount: null,
     paused: true,
     break: false
   }
@@ -25,11 +25,11 @@
       switch (target) {
         case 'break-increase':
           newState = state.breakLength + 1;
-          updateState({ breakLength: newState });
+          updateState({ breakLength: newState, currentCount: null });
           break;
         case 'break-decrease':
           newState = state.breakLength > 0 ? state.breakLength - 1 : 0;
-          updateState({ breakLength: newState });
+          updateState({ breakLength: newState, currentCount: null });
           break;
         case 'session-increase':
           newState = state.sessionLength + 1;
@@ -72,15 +72,17 @@
       if (state.currentCount > 0) {
         countdown();
       } else {
+        updateState({ break: !state.break })
         toggleTimer();
       }
     }, 1000);
   }
 
   function toggleTimer() {
-    updateState({ break: !state.break })
     const time = state.break ? state.breakLength * 60 : state.sessionLength * 60;
+    const display = state.break ? `${state.breakLength}:00` : `${state.sessionLength}:00`;
     updateState({ currentCount: time });
+    updateCounterDisplay(display);
   }
 
 
@@ -89,12 +91,12 @@
   }
 
   function countdown() {
-    const date = new Date(null);
+    const date = new Date(null, null);
     const decreaseCount = state.currentCount - 1;
     updateState({ currentCount: decreaseCount });
     date.setSeconds(state.currentCount);
-    const hhmmss = date.toISOString().substr(11, 8);
-    updateCounterDisplay(hhmmss);
+    const hms = `${date.getHours() > 0 ? date.getHours() + ':' : ''}${date.getMinutes() > 0 ? date.getMinutes() + ':' : '00:'}${date.getSeconds() > 0 ? date.getSeconds() : '00'}`;
+    updateCounterDisplay(hms);
   }
 
   function updateState(newState = {}) {
