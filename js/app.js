@@ -95,8 +95,12 @@
     const decreaseCount = state.currentCount - 1;
     updateState({ currentCount: decreaseCount });
     date.setSeconds(state.currentCount);
-    const hms = `${date.getHours() > 0 ? date.getHours() + ':' : ''}${date.getMinutes() > 0 ? date.getMinutes() + ':' : '00:'}${date.getSeconds() > 0 ? date.getSeconds() : '00'}`;
+    const hms = toHMS(date)
     updateCounterDisplay(hms);
+  }
+
+  function toHMS(time) {
+    return `${time.getHours() > 0 ? time.getHours() + ':' : ''}${time.getMinutes() > 0 ? time.getMinutes() + ':' : '00:'}${time.getSeconds() > 0 ? time.getSeconds() : '00'}`;
   }
 
   function updateState(newState = {}) {
