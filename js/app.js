@@ -6,6 +6,8 @@
   const breakDisplay = document.getElementById('break-display');
   const sessionDisplay = document.getElementById('session-display');
   const [timerBtn] = Array.from(document.getElementsByClassName('timer-btn'));
+  const progressBar = document.getElementById('progress');
+
   let timer;
 
   let state = {
@@ -85,6 +87,15 @@
     updateCounterDisplay(display);
   }
 
+  function updateProgressBar() {
+    if (!state.break) {
+      const progress = (state.currentCount / (state.sessionLength * 60)) * 100;
+      progressBar.style.top = `${progress}%`;
+    } else {
+      const progress = 100 - ((state.currentCount / (state.breakLength * 60)) * 100);
+      progressBar.style.top = `${progress}%`;
+    }
+  }
 
   function stopTimer() {
     clearInterval(timer);
@@ -97,6 +108,7 @@
     date.setSeconds(state.currentCount);
     const hms = toHMS(date)
     updateCounterDisplay(hms);
+    updateProgressBar();
   }
 
   function toHMS(time) {
@@ -105,7 +117,7 @@
 
   function updateState(newState = {}) {
     state = Object.assign({}, state, newState);
-    console.log(state);
+    //console.log(state);
   }
 
   function updateDisplay() {
