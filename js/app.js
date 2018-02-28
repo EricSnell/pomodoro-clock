@@ -74,10 +74,17 @@
       if (state.currentCount > 0) {
         countdown();
       } else {
+        playSound();
         updateState({ break: !state.break })
         toggleTimer();
       }
     }, 1000);
+  }
+
+  function playSound() {
+    const mp3 = 'http://newt.phys.unsw.edu.au/music/bellplates/sounds/bellplate-corner3.mp3';
+    const sound = new Audio(mp3);
+    sound.play();
   }
 
   function toggleTimer() {
