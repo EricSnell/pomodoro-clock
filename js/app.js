@@ -30,7 +30,7 @@
           updateState({ breakLength: newState, currentCount: null });
           break;
         case 'break-decrease':
-          newState = state.breakLength > 0 ? state.breakLength - 1 : 0;
+          newState = state.breakLength > 1 ? state.breakLength - 1 : 1;
           updateState({ breakLength: newState, currentCount: null });
           break;
         case 'session-increase':
@@ -38,7 +38,7 @@
           updateState({ sessionLength: newState, currentCount: null });
           break;
         case 'session-decrease':
-          newState = state.sessionLength > 0 ? state.sessionLength - 1 : 0;
+          newState = state.sessionLength > 1 ? state.sessionLength - 1 : 1;
           updateState({ sessionLength: newState, currentCount: null })
           break;
         default:
