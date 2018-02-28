@@ -13,7 +13,8 @@ html {
 
 body {
   font-size: 62.5%;
-  font-family: 'Helvetica Neue', Arial, sans-serif; }
+  font-family: 'Roboto Mono', monospace;
+  background-image: linear-gradient(to bottom right, #333, #000); }
 
 button {
   border: none;
@@ -25,7 +26,7 @@ button {
   flex-direction: column;
   width: 26rem;
   height: 34rem;
-  background: #333;
+  margin: 0 auto;
   color: #fff; }
 
 .timer {
@@ -33,7 +34,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 4rem; }
+  font-size: 5rem; }
 
 .settings {
   flex: 1;
@@ -53,12 +54,29 @@ button {
   .controls__btn {
     flex: 0 30%;
     width: 3rem;
-    background: #333;
+    background: transparent;
     font-size: 2rem;
     color: #fff;
-    transition: all .4s; }
+    transition: all .4s;
+    position: relative; }
     .controls__btn:hover {
       color: aqua; }
+    .controls__btn::after {
+      content: '';
+      height: .5rem;
+      width: .5rem;
+      background: #eee;
+      border-radius: 10rem;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: all .6s;
+      z-index: -1; }
+    .controls__btn:hover::after {
+      animation: circleglow .6s; }
+    .controls__btn:active {
+      top: 2px; }
   .controls__display {
     flex: 0 15%;
     color: white;
@@ -75,3 +93,13 @@ button {
   transition: all .4s; }
   .timer-btn:hover {
     background: aqua; }
+
+@keyframes circleglow {
+  0% {
+    width: .5rem;
+    height: .5rem;
+    opacity: 1; }
+  100% {
+    width: 4.5rem;
+    height: 4.5rem;
+    opacity: 0; } }

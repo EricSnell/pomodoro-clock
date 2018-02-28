@@ -16,7 +16,8 @@ html {
 
 body {
   font-size: 62.5%;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Roboto Mono', monospace;
+  background-image: linear-gradient(to bottom right, #333, #000);
 }
 
 button {
@@ -33,7 +34,7 @@ button {
   flex-direction: column;
   width: 26rem;
   height: 34rem;
-  background: #333;
+  margin: 0 auto;
   color: #fff;
 }
 
@@ -42,7 +43,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 4rem;
+  font-size: 5rem;
 }
 
 .settings {
@@ -67,13 +68,36 @@ button {
   &__btn {
     flex: 0 30%;
     width: 3rem;
-    background: #333;
+    background: transparent;
     font-size: 2rem;
     color: #fff;
     transition: all .4s;
+    position: relative;
 
     &:hover {
       color: aqua;
+    }
+    
+    &::after {
+      content: '';
+      height: .5rem;
+      width: .5rem;
+      background: #eee;
+      border-radius: 10rem;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: all .6s;
+      z-index: -1;
+    }
+
+    &:hover::after {
+      animation: circleglow .6s;
+    }
+
+    &:active {
+      top: 2px;
     }
   }
 
@@ -96,5 +120,20 @@ button {
 
   &:hover {
     background: aqua;
+  }
+}
+
+
+@keyframes circleglow {
+  0% {
+    width: .5rem;
+    height: .5rem;
+    opacity: 1;
+  }
+
+  100% {
+    width: 4.5rem;
+    height: 4.5rem;
+    opacity: 0;
   }
 }
