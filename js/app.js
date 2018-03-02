@@ -124,7 +124,6 @@
 
   function updateState(newState = {}) {
     state = Object.assign({}, state, newState);
-    //console.log(state);
   }
 
   function updateDisplay() {
