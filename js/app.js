@@ -11,8 +11,8 @@
   let timer;
 
   let state = {
-    breakLength: 1,
-    sessionLength: 3,
+    breakLength: 5,
+    sessionLength: 25,
     currentCount: null,
     paused: true,
     break: false
@@ -23,23 +23,23 @@
   settings.addEventListener('click', (e) => {
     const target = e.target.id;
     if (state.paused) {
-      let newState;
+      let update;
       switch (target) {
         case 'break-increase':
-          newState = state.breakLength + 1;
-          updateState({ breakLength: newState, currentCount: null });
+          update = state.breakLength + 1;
+          updateState({ breakLength: update, currentCount: null });
           break;
         case 'break-decrease':
-          newState = state.breakLength > 1 ? state.breakLength - 1 : 1;
-          updateState({ breakLength: newState, currentCount: null });
+          update = state.breakLength > 1 ? state.breakLength - 1 : 1;
+          updateState({ breakLength: update, currentCount: null });
           break;
         case 'session-increase':
-          newState = state.sessionLength + 1;
-          updateState({ sessionLength: newState, currentCount: null });
+          update = state.sessionLength + 1;
+          updateState({ sessionLength: update, currentCount: null });
           break;
         case 'session-decrease':
-          newState = state.sessionLength > 1 ? state.sessionLength - 1 : 1;
-          updateState({ sessionLength: newState, currentCount: null })
+          update = state.sessionLength > 1 ? state.sessionLength - 1 : 1;
+          updateState({ sessionLength: update, currentCount: null })
           break;
         default:
           break;
