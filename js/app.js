@@ -124,7 +124,10 @@
   }
 
   function toHMS(time) {
-    return `${time.getHours() > 0 ? time.getHours() + ':' : ''}${time.getMinutes() > 0 ? time.getMinutes() + ':' : '00:'}${time.getSeconds() > 0 ? time.getSeconds() : '00'}`;
+    const hours = time.getHours() > 0 ? `${time.getHours()}:` : '';
+    const minutes = time.getMinutes() > 0 ? `${time.getMinutes()}:` : '';
+    const seconds = (time.getSeconds() >= 0 && time.getSeconds() <= 9) ? `0${time.getSeconds()}` : time.getSeconds();
+    return `${hours}${minutes}${seconds}`;
   }
 
   function updateState(newState = {}) {
