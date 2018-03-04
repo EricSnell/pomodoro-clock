@@ -18,9 +18,17 @@
     break: false
   }
 
-  updateDisplay();
+  init();
 
-  settings.addEventListener('click', (e) => {
+
+
+  function init() {
+    settings.addEventListener('click', adjustTimer);
+    timerBtn.addEventListener('click', handleButton);
+    updateDisplay();
+  }
+
+  function adjustTimer(e) {
     const target = e.target.id;
     if (state.paused) {
       let update;
@@ -44,14 +52,11 @@
         default:
           break;
       }
-
       updateDisplay();
     }
-  });
+  }
 
-
-
-  timerBtn.addEventListener('click', (e) => {
+  function handleButton(e) {
     e.stopPropagation();
     togglePaused();
     if (state.paused) {
@@ -62,7 +67,7 @@
       }
       runTimer();
     }
-  });
+  }
 
   function togglePaused() {
     const toggle = !state.paused;
