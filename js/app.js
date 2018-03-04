@@ -138,7 +138,8 @@
   function toHMS(time) {
     const hours = time.getHours() > 0 ? `${time.getHours()}:` : '';
     const minutes = time.getMinutes() > 0 ? `${time.getMinutes()}:` : '';
-    const seconds = (time.getSeconds() >= 0 && time.getSeconds() <= 9) ? `0${time.getSeconds()}` : time.getSeconds();
+    const seconds = (time.getSeconds() >= 0 && time.getSeconds() <= 9) ?
+      `0${time.getSeconds()}` : time.getSeconds();
     return `${hours}${minutes}${seconds}`;
   }
 
