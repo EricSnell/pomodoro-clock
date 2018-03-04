@@ -2,7 +2,7 @@
   --background: linear-gradient(to bottom right, #435058, #3C484F);
   --font-color: #F1F2EE;
   --btn-color: #645E9D;
-  --progress-bar: linear-gradient(to bottom left, #DCF763, #C6DE59);
+  --progress-bar: linear-gradient(to bottom left, #FF5C07, #FF7F18);
   --hover-color: #99D5C9;
 }
 
@@ -15,6 +15,7 @@ html {
   box-sizing: border-box;
   height: 100%;
   overflow: hidden;
+  font-size: 62.5%;
 }
 
 *,
@@ -25,7 +26,6 @@ html {
 
 body {
   height: 100%;
-  font-size: 62.5%;
   font-family: 'Roboto Mono', monospace;
   background-image: var(--background);
 }
@@ -48,8 +48,8 @@ button {
   flex: 1;
   display: flex;
   flex-direction: column;
-  max-width: 23rem;
-  height: 30rem;
+  max-width: 43rem;
+  height: 50rem;
   color: var(--font-color);
 }
 
@@ -58,17 +58,18 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 8rem;
+  font-size: 10rem;
 }
 
 .settings {
   flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .controls {
-  flex: 1;
+  flex: 0 30%;
   align-self: stretch;
   display: flex;
   flex-direction: column;
@@ -77,14 +78,14 @@ button {
 
   &__header {
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   &__btn {
     flex: 0 30%;
-    width: 3rem;
+    width: 5rem;
     background: transparent;
-    font-size: 3rem;
+    font-size: 5rem;
     color: var(--btn-color);
     transition: all .4s;
     position: relative;
@@ -95,8 +96,8 @@ button {
     
     &::after {
       content: '';
-      height: .5rem;
-      width: .5rem;
+      height: 1rem;
+      width: 1rem;
       background: #eee;
       border-radius: 10rem;
       position: absolute;
@@ -107,9 +108,9 @@ button {
       z-index: -1;
     }
 
-    &:hover::after {
-      animation: circleglow .6s;
-    }
+    // &:hover::after {
+    //   animation: circleglow .6s;
+    // }
 
     &:active {
       top: 2px;
@@ -122,14 +123,15 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    font-size: 3rem;
   }
 }
 
 .timer-btn {
   border-radius: 20rem;
-  width: 6rem;
-  height: 6rem;
+  width: 11rem;
+  height: 11rem;
+  margin: 0 auto;
   background: var(--btn-color);;
   transition: all .4s;
   border: .3rem solid var(--font-color);
@@ -158,8 +160,8 @@ button {
   }
 
   100% {
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 6.5rem;
+    height: 6.5rem;
     opacity: 0;
   }
 }
