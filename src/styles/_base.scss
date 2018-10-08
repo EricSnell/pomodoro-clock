@@ -30,6 +30,11 @@ body {
   background-image: var(--background);
 }
 
+button {
+  outline: 0;
+  border: none;
+}
+
 @keyframes circleglow {
   from {
     width: 0.8rem;
