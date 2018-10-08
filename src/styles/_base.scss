@@ -1,0 +1,45 @@
+:root {
+  --background: linear-gradient(to bottom right, #435058, #3c484f);
+  --font-color: #f1f2ee;
+  --btn-color: #645e9d;
+  --progress-bar: linear-gradient(to bottom left, #ff5c07, #ff7f18);
+  --hover-color: #99d5c9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
+  font-size: 62.5%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  height: 100%;
+  font-family: 'Roboto Mono', monospace;
+  background-image: var(--background);
+}
+
+@keyframes circleglow {
+  from {
+    width: 0.8rem;
+    height: 0.8rem;
+    opacity: 1;
+  }
+
+  to {
+    width: 6.5rem;
+    height: 6.5rem;
+    opacity: 0;
+  }
+}
