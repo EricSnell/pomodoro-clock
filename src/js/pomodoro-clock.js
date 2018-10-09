@@ -2,12 +2,12 @@ export default function PomodoroCLock() {
   'use strict';
 
   // Caching timer elements
-  const [settings] = Array.from(document.getElementsByClassName('settings'));
-  const [timerDisplay] = Array.from(document.getElementsByClassName('timer'));
-  const [timerBtn] = Array.from(document.getElementsByClassName('timer-btn'));
-  const breakDisplay = document.getElementById('break-display');
-  const sessionDisplay = document.getElementById('session-display');
-  const progressBar = document.getElementById('progress');
+  const settings = document.querySelector('.settings');
+  const timerDisplay = document.querySelector('.timer');
+  const timerBtn = document.querySelector('.timer-btn');
+  const breakDisplay = document.querySelector('#break-display');
+  const sessionDisplay = document.querySelector('#session-display');
+  const progressBar = document.querySelector('#progress');
 
   // Variable to store setTimeout method (allows us to clear method later)
   let timer;
@@ -32,31 +32,28 @@ export default function PomodoroCLock() {
 
   // Handles break and session timer adjustments (only when timer not running)
   function adjustTimer(e) {
-    const target = e.target.id;
-    if (state.paused) {
-      let update;
-      switch (target) {
-        case 'break-increase':
-          update = state.breakLength + 1;
-          updateState({ breakLength: update, currentCount: null });
-          break;
-        case 'break-decrease':
-          update = state.breakLength > 1 ? state.breakLength - 1 : 1;
-          updateState({ breakLength: update, currentCount: null });
-          break;
-        case 'session-increase':
-          update = state.sessionLength + 1;
-          updateState({ sessionLength: update, currentCount: null });
-          break;
-        case 'session-decrease':
-          update = state.sessionLength > 1 ? state.sessionLength - 1 : 1;
-          updateState({ sessionLength: update, currentCount: null });
-          break;
-        default:
-          break;
-      }
-      updateDisplay();
+    if (state.paused && e.target.tagName === 'BUTTON') {
+      const target = e.target.id;
+      const isBreak = target.includes('break');
+      const current = isBreak ? state.breakLength : state.sessionLength;
+      const newCount = updateCount(target, current);
+      if (isBreak) updateState({ breakLength: newCount, currentCount: null });
+      else updateState({ sessionLength: newCount, currentCount: null });
     }
+    updateDisplay();
+  }
+
+  function updateCount(btn, currentCount) {
+    if (btn.includes('increase')) return increase(currentCount);
+    else if (btn.includes('decrease')) return decrease(currentCount);
+  }
+
+  function increase(num) {
+    return num + 1;
+  }
+
+  function decrease(num) {
+    return num > 1 ? num - 1 : 1;
   }
 
   // Pauses/Unpauses timer
