@@ -11,7 +11,7 @@ html(lang="en")
     .container
       main.main
         section.timer
-          .timer__countdown
+          .timer__display
           .timer__outer
             .timer__progress--1
             .timer__progress--2
@@ -23,14 +23,14 @@ html(lang="en")
         section.settings
           .settings__item
             .settings__name Session
-            .settings__decrease -
-            .settings__amount 10
-            .settings__increase +
+            button.settings__decrease#session-decrease-js -
+            .settings__display--session 10
+            button.settings__increase#session-increase-js +
           .settings__item
             .settings__name Break
-            .settings__decrease -
-            .settings__amount 3
-            .settings__increase +
+            button.settings__decrease#break-decrease-js -
+            .settings__display--break 3
+            button.settings__increase#break-increase-js +
 
 
       

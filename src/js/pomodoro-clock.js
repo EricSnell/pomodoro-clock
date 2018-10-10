@@ -3,10 +3,10 @@ export default function PomodoroCLock() {
 
   // Caching timer elements
   const settings = document.querySelector('.settings');
-  const timerDisplay = document.querySelector('.timer');
-  const timerBtn = document.querySelector('.timer-btn');
-  const breakDisplay = document.querySelector('#break-display');
-  const sessionDisplay = document.querySelector('#session-display');
+  const timerDisplay = document.querySelector('.timer__display');
+  const timerBtn = document.querySelector('.timer__button');
+  const breakDisplay = document.querySelector('.settings__display--break');
+  const sessionDisplay = document.querySelector('.settings__display--session');
   const progressBar = document.querySelector('#progress');
 
   // Variable to store setTimeout method (allows us to clear method later)
@@ -34,11 +34,9 @@ export default function PomodoroCLock() {
   function adjustTimer(e) {
     if (state.paused && e.target.tagName === 'BUTTON') {
       const target = e.target.id;
-      const isBreak = target.includes('break');
-      const current = isBreak ? state.breakLength : state.sessionLength;
-      const newCount = updateCount(target, current);
-      if (isBreak) updateState({ breakLength: newCount, currentCount: null });
-      else updateState({ sessionLength: newCount, currentCount: null });
+      const timer = target.includes('break') ? 'breakLength' : 'sessionLength';
+      const newCount = updateCount(target, state[timer]);
+      updateState({ [timer]: newCount, currentCount: null });
     }
     updateDisplay();
   }
