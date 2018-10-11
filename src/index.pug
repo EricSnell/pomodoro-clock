@@ -11,14 +11,14 @@ html(lang="en")
     .container
       main.main
         section.timer
-          .timer__display
           .timer__outer
             .timer__progress--1
             .timer__progress--2
-            button.timer__button
+          button.timer__button GO
+          .timer__display
 
         //- Checkbox hack for settings menu
-        input(type="checkbox")
+        input.menu-btn(type="checkbox")
 
         section.settings
           .settings__item
@@ -31,25 +31,3 @@ html(lang="en")
             button.settings__decrease#break-decrease-js -
             .settings__display--break 3
             button.settings__increase#break-increase-js +
-
-
-      
-    //-   main.main
-    //-     .timer
-
-    //-     .settings
-    //-       .controls
-    //-         span.controls__header Break
-    //-         button.controls__btn.btn--up#break-increase &#9650;
-    //-         span.controls__display#break-display
-    //-         button.controls__btn.btn--down#break-decrease &#9660;
-          
-    //-       button.timer-btn
-
-    //-       .controls
-    //-         span.controls__header Sessions
-    //-         button.controls__btn.btn--up#session-increase &#9650;
-    //-         span.controls__display#session-display
-    //-         button.controls__btn.btn--down#session-decrease &#9660;
-
-    //- #progress

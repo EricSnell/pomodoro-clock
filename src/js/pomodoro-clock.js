@@ -132,7 +132,7 @@ export default function PomodoroCLock() {
     date.setSeconds(state.currentCount);
     const hms = toHMS(date);
     updateCounterDisplay(hms);
-    updateProgressBar();
+    //updateProgressBar();
   }
 
   // Returns the time in HH:MM:SS format
