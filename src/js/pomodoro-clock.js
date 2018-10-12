@@ -3,10 +3,10 @@ export default function PomodoroCLock() {
 
   // Caching timer elements
   const settings = document.querySelector('.settings');
-  const timerDisplay = document.querySelector('.timer__display');
+  const timerDisplay = document.querySelector('.timer__button');
   const timerBtn = document.querySelector('.timer__button');
-  const breakDisplay = document.querySelector('.settings__display--break');
-  const sessionDisplay = document.querySelector('.settings__display--session');
+  const breakDisplay = document.querySelector('#break-display-js');
+  const sessionDisplay = document.querySelector('#session-display-js');
   const progressBar = document.querySelector('#progress');
 
   // Variable to store setTimeout method (allows us to clear method later)
@@ -59,11 +59,16 @@ export default function PomodoroCLock() {
     e.stopPropagation();
     togglePaused();
     if (state.paused) {
+      updateCounterDisplay('&#9646;&#9646;');
+      // pause animation setting animation-play-state property to paused
       stopTimer();
     } else {
       if (!state.currentCount) {
         updateState({ currentCount: state.sessionLength * 60 });
       }
+      // start animation setting animation-play-state property to running
+      //runProgressAnimation();
+      updateCounterDisplay(state.currentCount);
       runTimer();
     }
   }
@@ -112,16 +117,13 @@ export default function PomodoroCLock() {
     updateCounterDisplay(display);
   }
 
-  // Updates the position of the progress bar relative to the current count of the timer
-  function updateProgressBar() {
-    if (!state.break) {
-      const progress = (state.currentCount / (state.sessionLength * 60)) * 100;
-      progressBar.style.top = `${progress}%`;
-    } else {
-      const progress =
-        100 - (state.currentCount / (state.breakLength * 60)) * 100;
-      progressBar.style.top = `${progress}%`;
-    }
+  function runProgressAnimation() {
+    /* spinner 1
+    * animation: progress *DURATION* linear forwards
+    *
+    * spinner 2 (second duration acts as delay)
+    * animation: progress *DURATION* linear *DURATION* forwards
+    */
   }
 
   // Counts down the timer and updates the view
@@ -160,6 +162,6 @@ export default function PomodoroCLock() {
 
   // Updates the display of the timer
   function updateCounterDisplay(time) {
-    timerDisplay.textContent = time;
+    timerDisplay.innerHTML = time;
   }
 }

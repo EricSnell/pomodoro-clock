@@ -4,30 +4,34 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    link(href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,500,700", rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Space+Mono", rel="stylesheet")
     title Pomodoro Clock
   body
 
     .container
-      main.main
-        section.timer
-          .timer__outer
-            .timer__progress--1
-            .timer__progress--2
-          button.timer__button GO
-          .timer__display
-
-        //- Checkbox hack for settings menu
-        input.menu-btn(type="checkbox")
-
-        section.settings
+      input#menu-checkbox(type="checkbox")
+      label#menu-btn(for="menu-checkbox")
+      section.settings
+        .settings__inner
           .settings__item
-            .settings__name Session
-            button.settings__decrease#session-decrease-js -
-            .settings__display--session 10
-            button.settings__increase#session-increase-js +
+            .settings__header Session
+            .settings__controls
+              button.settings__btn#session-decrease-js -
+              span.settings__display#session-display-js 10
+              button.settings__btn#session-increase-js +
           .settings__item
-            .settings__name Break
-            button.settings__decrease#break-decrease-js -
-            .settings__display--break 3
-            button.settings__increase#break-increase-js +
+            .settings__header Break
+            .settings__controls
+              button.settings__btn#break-decrease-js -
+              span.settings__display#break-display-js 3
+              button.settings__btn#break-increase-js +
+
+
+      section.timer
+        .timer__outer
+          .timer__progress--1
+          .timer__progress--2
+        button.timer__button
+        .timer__display
+      //- Checkbox hack for settings menu
+

@@ -21,15 +21,26 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
+  font-family: inherit;
 }
 
 body {
   height: 100%;
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'Space Mono', monospace;
   background-image: var(--background);
 }
 
 button {
   outline: 0;
   border: none;
+}
+
+@keyframes progress {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
 }
