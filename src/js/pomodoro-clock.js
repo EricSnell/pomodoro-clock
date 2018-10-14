@@ -7,8 +7,8 @@ export default function PomodoroCLock() {
   const timerBtn = document.querySelector('.timer__button');
   const breakDisplay = document.querySelector('#break-display-js');
   const sessionDisplay = document.querySelector('#session-display-js');
-  const spinner1 = document.querySelector('.timer__progress--1');
-  const spinner2 = document.querySelector('.timer__progress--2');
+  const spinner1 = document.querySelector('.timer__spinner--1');
+  const spinner2 = document.querySelector('.timer__spinner--2');
   const spinners = [spinner1, spinner2];
 
   // Variable to store setTimeout method (allows us to clear method later)
