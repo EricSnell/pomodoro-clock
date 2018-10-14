@@ -44,7 +44,7 @@
     }
 
     &--3 {
-      background: #000;
+      background: #888;
       z-index: 3;
     }
   }
@@ -52,8 +52,8 @@
   &__button {
     font-size: 5rem;
     color: #fc6c6c;
-    width: 92%;
-    height: 92%;
+    width: 85%;
+    height: 85%;
     border-radius: 100%;
     position: absolute;
     top: 50%;

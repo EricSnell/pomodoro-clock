@@ -15,8 +15,8 @@ export default function PomodoroCLock() {
 
   // States of timer
   let state = {
-    breakLength: 1,
-    sessionLength: 1,
+    breakLength: 0.1,
+    sessionLength: 0.1,
     currentCount: null,
     paused: true,
     break: false
@@ -62,14 +62,14 @@ export default function PomodoroCLock() {
     if (state.paused) {
       updateCounterDisplay('&#9646;&#9646;');
       stopTimer();
+      pauseAnimation([spinner1, spinner2]);
     } else {
       if (!state.currentCount) {
-        runTimerAnimation();
         updateState({ currentCount: state.sessionLength * 60 });
       }
-      // start animation setting animation-play-state property to running
       updateCounterDisplay(formatTime(state.currentCount));
       runTimer();
+      runTimerAnimation(state.currentCount);
     }
   }
 
@@ -89,8 +89,7 @@ export default function PomodoroCLock() {
         playSound();
         updateState({ break: !state.break });
         toggleTimer();
-        resetAnimation([spinner1, spinner2]);
-        runTimerAnimation();
+        runTimerAnimation(state.currentCount);
       }
     }, 1000);
   }
@@ -119,35 +118,36 @@ export default function PomodoroCLock() {
     updateCounterDisplay(display);
   }
 
-  function runTimerAnimation() {
-    const color = state.break ? 'green' : 'red';
-    const timer = state.break ? state.breakLength : state.sessionLength;
-    const duration = `${timer * 30}s`;
-    console.log(state, timer, duration);
+  function runTimerAnimation(timer) {
+    const color = state.break ? '#69ff69' : '#fc6c6c';
+    //const timer = state.break ? state.breakLength : state.sessionLength;
+    const duration = `${timer / 2}s`;
+    resetAnimation([spinner1, spinner2]);
     setAnimation(spinner1, { color, duration });
-    spinner2.style.background = 'pink';
-    spinner2.style.zIndex = '1';
-    console.log(spinner1.style.animation);
     spinner1.addEventListener('animationend', () => {
       spinner2.style.zIndex = '5';
       setAnimation(spinner2, { color, duration });
     });
-    // spinner2.addEventListener('animationend', () => {
-    //   resetAnimation([spinner1, spinner2]);
-    // });
   }
 
   function setAnimation(elm, props) {
     elm.style.background = props.color;
-    elm.style.animation = `progress ${props.duration} linear forwards`;
+    elm.style.animation = `progress ${props.duration} linear forwards running`;
   }
 
   function resetAnimation(elms) {
+    spinner2.style.zIndex = '1';
+    spinner2.style.background = '#888';
     elms.forEach(elm => {
       elm.style.animation = 'none';
       void elm.offsetWidth;
-      elm.style.background = 'yellow';
     });
+  }
+
+  function pauseAnimation(elms) {
+    console.log('toggling..', 'paused?', state.paused);
+    const toggle = state.paused ? 'paused' : 'running';
+    elms.forEach(elm => (elm.style.animationPlayState = toggle));
   }
 
   // Counts down the timer and updates the view
