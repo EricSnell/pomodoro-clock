@@ -7,15 +7,16 @@ export default function PomodoroCLock() {
   const timerBtn = document.querySelector('.timer__button');
   const breakDisplay = document.querySelector('#break-display-js');
   const sessionDisplay = document.querySelector('#session-display-js');
-  const progressBar = document.querySelector('#progress');
+  const spinner1 = document.querySelector('.timer__progress--1');
+  const spinner2 = document.querySelector('.timer__progress--2');
 
   // Variable to store setTimeout method (allows us to clear method later)
   let timer;
 
   // States of timer
   let state = {
-    breakLength: 5,
-    sessionLength: 25,
+    breakLength: 1,
+    sessionLength: 1,
     currentCount: null,
     paused: true,
     break: false
@@ -60,15 +61,14 @@ export default function PomodoroCLock() {
     togglePaused();
     if (state.paused) {
       updateCounterDisplay('&#9646;&#9646;');
-      // pause animation setting animation-play-state property to paused
       stopTimer();
     } else {
       if (!state.currentCount) {
+        runTimerAnimation();
         updateState({ currentCount: state.sessionLength * 60 });
       }
       // start animation setting animation-play-state property to running
-      //runProgressAnimation();
-      updateCounterDisplay(state.currentCount);
+      updateCounterDisplay(formatTime(state.currentCount));
       runTimer();
     }
   }
@@ -89,6 +89,8 @@ export default function PomodoroCLock() {
         playSound();
         updateState({ break: !state.break });
         toggleTimer();
+        resetAnimation([spinner1, spinner2]);
+        runTimerAnimation();
       }
     }, 1000);
   }
@@ -117,24 +119,50 @@ export default function PomodoroCLock() {
     updateCounterDisplay(display);
   }
 
-  function runProgressAnimation() {
-    /* spinner 1
-    * animation: progress *DURATION* linear forwards
-    *
-    * spinner 2 (second duration acts as delay)
-    * animation: progress *DURATION* linear *DURATION* forwards
-    */
+  function runTimerAnimation() {
+    const color = state.break ? 'green' : 'red';
+    const timer = state.break ? state.breakLength : state.sessionLength;
+    const duration = `${timer * 30}s`;
+    console.log(state, timer, duration);
+    setAnimation(spinner1, { color, duration });
+    spinner2.style.background = 'pink';
+    spinner2.style.zIndex = '1';
+    console.log(spinner1.style.animation);
+    spinner1.addEventListener('animationend', () => {
+      spinner2.style.zIndex = '5';
+      setAnimation(spinner2, { color, duration });
+    });
+    // spinner2.addEventListener('animationend', () => {
+    //   resetAnimation([spinner1, spinner2]);
+    // });
+  }
+
+  function setAnimation(elm, props) {
+    elm.style.background = props.color;
+    elm.style.animation = `progress ${props.duration} linear forwards`;
+  }
+
+  function resetAnimation(elms) {
+    elms.forEach(elm => {
+      elm.style.animation = 'none';
+      void elm.offsetWidth;
+      elm.style.background = 'yellow';
+    });
   }
 
   // Counts down the timer and updates the view
   function countdown() {
-    const date = new Date(null, null); // Null values sets the hours and minutes to 0
     const decreaseCount = state.currentCount - 1;
     updateState({ currentCount: decreaseCount });
-    date.setSeconds(state.currentCount);
-    const hms = toHMS(date);
+    const hms = formatTime(state.currentCount);
     updateCounterDisplay(hms);
-    //updateProgressBar();
+  }
+
+  function formatTime(seconds) {
+    const date = new Date(null, null); // Null values sets the hours and minutes to 0
+    date.setSeconds(seconds);
+    const hms = toHMS(date);
+    return hms;
   }
 
   // Returns the time in HH:MM:SS format
