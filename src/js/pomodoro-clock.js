@@ -9,14 +9,15 @@ export default function PomodoroCLock() {
   const sessionDisplay = document.querySelector('#session-display-js');
   const spinner1 = document.querySelector('.timer__progress--1');
   const spinner2 = document.querySelector('.timer__progress--2');
+  const spinners = [spinner1, spinner2];
 
   // Variable to store setTimeout method (allows us to clear method later)
   let timer;
 
   // States of timer
   let state = {
-    breakLength: 0.1,
-    sessionLength: 0.1,
+    breakLength: 5,
+    sessionLength: 1,
     currentCount: null,
     paused: true,
     break: false
@@ -62,7 +63,7 @@ export default function PomodoroCLock() {
     if (state.paused) {
       updateCounterDisplay('&#9646;&#9646;');
       stopTimer();
-      pauseAnimation([spinner1, spinner2]);
+      pauseAnimation(spinners);
     } else {
       if (!state.currentCount) {
         updateState({ currentCount: state.sessionLength * 60 });
@@ -120,9 +121,8 @@ export default function PomodoroCLock() {
 
   function runTimerAnimation(timer) {
     const color = state.break ? '#69ff69' : '#fc6c6c';
-    //const timer = state.break ? state.breakLength : state.sessionLength;
     const duration = `${timer / 2}s`;
-    resetAnimation([spinner1, spinner2]);
+    resetAnimation(spinners);
     setAnimation(spinner1, { color, duration });
     spinner1.addEventListener('animationend', () => {
       spinner2.style.zIndex = '5';
@@ -145,9 +145,7 @@ export default function PomodoroCLock() {
   }
 
   function pauseAnimation(elms) {
-    console.log('toggling..', 'paused?', state.paused);
-    const toggle = state.paused ? 'paused' : 'running';
-    elms.forEach(elm => (elm.style.animationPlayState = toggle));
+    elms.forEach(elm => (elm.style.animationPlayState = 'paused'));
   }
 
   // Counts down the timer and updates the view
