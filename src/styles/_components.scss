@@ -1,9 +1,15 @@
 .timer {
-  width: 40rem;
   height: 40rem;
-  max-width: 40rem;
+  width: 40rem;
   margin: 0 auto;
   position: relative;
+
+  @media only screen and (max-width: 415px) {
+    height: 30rem;
+    width: 30rem;
+    margin: 0 auto;
+    padding: 1rem;
+  }
 
   &__display {
     font-size: 6rem;
